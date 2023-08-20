@@ -14,7 +14,7 @@ function MainLayout({ children }: ChildrenProps) {
       }`}
     >
       <MainNav />
-      <div className="pt-32 px-12 dark:text-zinc-50">{children}</div>
+      <div className="pt-24 px-12 dark:text-zinc-50">{children}</div>
     </div>
   );
 }
