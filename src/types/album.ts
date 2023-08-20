@@ -8,6 +8,7 @@ type Album = {
   cover_xl: string;
   tracklist: string;
   type: string;
+  release_date: string;
 };
 
 export { Album };

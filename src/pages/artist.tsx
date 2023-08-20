@@ -12,12 +12,15 @@ import {
   formatNumberWithCommas,
 } from "../utils/helpers";
 import { BadgeCheck } from "lucide-react";
+import { Album } from "../types/album";
 
 function ArtistPage() {
   const { id } = useParams();
 
   const [artist, setArtist] = useState<Artist>(null);
   const [tracks, setTracks] = useState<Track[]>([]);
+  const [albums, setAlbums] = useState<Album[]>([]);
+  const [albumsToShow, setAlbumsToShow] = useState<Album[]>([]);
   const [fetching, setFetching] = useState(true);
   const [error, setError] = useState("");
 
@@ -45,7 +48,7 @@ function ArtistPage() {
     }
   };
 
-  const topTracks = async (id: string) => {
+  const fetchTopTracks = async (id: string) => {
     try {
       const response = await axios.get(
         `${process.env.REACT_APP_SERVER_URL}/deezer/artist/${id}/top-tracks`,
@@ -65,15 +68,37 @@ function ArtistPage() {
     }
   };
 
-  const fetchArtistAndTopTracks = useCallback(async (id: string) => {
+  const fetchAlbums = async (id: string) => {
+    try {
+      const response = await axios.get(
+        `${process.env.REACT_APP_SERVER_URL}/deezer/artist/${id}/albums`,
+        {
+          headers: {
+            Accept: "application/json",
+            "Content-Type": "application/json",
+          },
+        }
+      );
+
+      if (response.data) {
+        setAlbums(response.data);
+
+        setAlbumsToShow(response.data.slice(0, 5));
+      }
+    } catch (error: any) {
+      setError("Something went wrong");
+    }
+  };
+
+  const fetchArtistDetails = useCallback(async (id: string) => {
     setFetching(true);
-    await Promise.all([fetchArtist(id), topTracks(id)]);
+    await Promise.all([fetchArtist(id), fetchTopTracks(id), fetchAlbums(id)]);
     setFetching(false);
   }, []);
 
   useEffect(() => {
-    fetchArtistAndTopTracks(id);
-  }, [fetchArtistAndTopTracks, id]);
+    fetchArtistDetails(id);
+  }, [fetchArtistDetails, id]);
 
   return (
     <MainLayout>
@@ -81,6 +106,12 @@ function ArtistPage() {
         {fetching ? (
           <div className="flex justify-center items-center">
             <Loader color={darkMode ? "#FAFAFA" : "#0E0F09"} size={64} />
+          </div>
+        ) : error !== "" ? (
+          <div className="flex justify-center items-center">
+            <h2 className="text-4xl">
+              Something went wrong when fetching this artists's info
+            </h2>
           </div>
         ) : (
           <div className="px-12">
@@ -153,6 +184,32 @@ function ArtistPage() {
                     <></>
                   )}
                 </div>
+              </div>
+            </div>
+            <div className="mt-12">
+              <div className="flex justify-between mb-5">
+                <h2 className="text-4xl font-medium">Albums</h2>
+                <button
+                  className="underline"
+                  onClick={() => setAlbumsToShow(albums)}
+                >
+                  See All
+                </button>
+              </div>
+              <div className="grid grid-cols-5 gap-8">
+                {albumsToShow.map((album, index) => {
+                  return (
+                    <div className="flex flex-col mb-5" key={index}>
+                      <img
+                        src={album.cover_medium}
+                        className="shadow-lg rounded"
+                        alt=""
+                      />
+                      <h4 className="font-semibold">{album.title}</h4>
+                      <p>{new Date(album.release_date).getFullYear()}</p>
+                    </div>
+                  );
+                })}
               </div>
             </div>
           </div>
