@@ -1,5 +1,5 @@
 # Deezer App API Challenge
 
-Enabling users to search for song using the deezer API (artist & song duration)
+An app that enables users to search the deezer database for songs.
 
-Click on an artist showing their information
+Clicking on artist displays basic information like number of fans, most recent albums etc
