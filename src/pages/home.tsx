@@ -55,7 +55,7 @@ function Home() {
 
   return (
     <MainLayout>
-      <div className="flex flex-col justify-center items-center px-24">
+      <div className="flex flex-col justify-center items-center lg:px-24 md:px-16 px-4">
         <div className="mb-8">Discover songs</div>
         <div className="relative w-full">
           <input
@@ -85,38 +85,43 @@ function Home() {
       </div>
 
       {!fetching && (
-        <div className="mt-6 px-24">
+        <div className="mt-6 lg:px-24 md:px-16 px-4">
           {tracks.length > 0 ? (
             <>
-              <div className="flex-start uppercase flex text-4xl mb-3">
-                Tracks
-              </div>
-              <div className="grid grid-cols-4 mb-6 ">
-                <div>#</div>
+              <div className="hidden lg:block">
+                <div className="flex-start uppercase flex text-4xl mb-3">
+                  Tracks
+                </div>
+                <div className="grid grid-cols-4 mb-6 ">
+                  <div>#</div>
 
-                <div>Title</div>
-                <div className="text-center">Album</div>
-                <div className="text-center">Duration</div>
+                  <div>Title</div>
+                  <div className="lg:text-center text-left ">Album</div>
+                  <div className="text-center">Duration</div>
+                </div>
               </div>
+
               {tracks.map((track, index) => (
                 <div
                   key={index}
-                  className="grid grid-cols-4 w-full px-0 p-4 border-b border-light-gray dark:border-subtle-white text-primary-black dark:text-zinc-50"
+                  className="grid lg:grid-cols-4 md:grid-cols-3 grid-cols-2 w-full px-0 p-4 border-b border-light-gray dark:border-subtle-white text-primary-black dark:text-zinc-50"
                 >
                   <div className="flex">
                     <div className="mr-3">{index + 1}</div>
                     <div>
                       <img
-                        src={track.album.cover}
-                        className="h-20 shadow-lg rounded"
+                        src={track.album.cover_medium}
+                        className="lg:h-20 md:h-32 h-40 shadow-lg rounded"
                         alt=""
                       />
                     </div>
                   </div>
                   <div className="flex flex-col">
-                    <div className="font-bold text-2xl">{track.title}</div>
+                    <div className="font-bold text-2xl  md:px-0 px-4">
+                      {track.title}
+                    </div>
                     <Link to={`/artist/${track.artist.id}`}>
-                      <div className="text-sm  mt-2 text-primary-black dark:text-gray-300">
+                      <div className="text-sm  mt-2 md:px-0 px-4 text-primary-black dark:text-gray-300">
                         {track.explicit_lyrics ? (
                           <span className="mr-2 text-primary-black shadow-sm bg-gray-300 font-semibold py-1 px-2 rounded">
                             E
@@ -127,14 +132,18 @@ function Home() {
                         </span>
                       </div>
                     </Link>
+
+                    <div className="md:px-0 px-4 block lg:hidden">
+                      {convertSecondsToDuration(track.duration)}
+                    </div>
                   </div>
-                  <Link to="#">
+                  <Link to="#" className="hidden lg:block">
                     <div className="text-center hover:underline">
                       {track.album.title}
                     </div>
                   </Link>
 
-                  <div className="text-center">
+                  <div className="text-center hidden lg:block">
                     {convertSecondsToDuration(track.duration)}
                   </div>
                 </div>

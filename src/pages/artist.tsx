@@ -114,8 +114,8 @@ function ArtistPage() {
             </h2>
           </div>
         ) : (
-          <div className="px-12">
-            <div className="grid grid-cols-2 gap-8">
+          <div className="lg:px-12 md:px-8 px-4">
+            <div className="grid lg:grid-cols-2 grid-cols-1 gap-8">
               <div className="grid grid-cols-1 mb-8">
                 <img
                   src={artist.picture_big}
@@ -125,7 +125,7 @@ function ArtistPage() {
               </div>
               <div>
                 <div className="mt-6 flex justify-between items-center">
-                  <h2 className="text-4xl flex items-center font-bold ">
+                  <h2 className="md:text-4xl text-2xl flex items-center font-bold ">
                     <span className="mr-4 border-b-4 border-custom-yellow">
                       {artist.name}
                     </span>
@@ -145,19 +145,19 @@ function ArtistPage() {
                         return (
                           <div
                             key={index}
-                            className="grid grid-cols-3 w-full px-0 p-4 border-b border-light-gray dark:border-subtle-white text-primary-black dark:text-zinc-50"
+                            className="grid md:grid-cols-3 grid-cols-2 w-full px-0 p-4 border-b border-light-gray dark:border-subtle-white text-primary-black dark:text-zinc-50"
                           >
                             <div className="flex">
                               <div className="mr-3">{index + 1}</div>
                               <div>
                                 <img
-                                  src={track.album.cover}
-                                  className="h-20 shadow-lg rounded"
+                                  src={track.album.cover_medium}
+                                  className="lg:h-20 md:h-32 h-40  shadow-lg rounded"
                                   alt=""
                                 />
                               </div>
                             </div>
-                            <div className="flex flex-col">
+                            <div className="flex flex-col md:px-0 px-6">
                               <div className="font-bold">{track.title}</div>
                               <Link to={`/artist/${track.artist.id}`}>
                                 <div className="text-sm  mt-2 text-primary-black dark:text-gray-300">
@@ -171,9 +171,12 @@ function ArtistPage() {
                                   </span>
                                 </div>
                               </Link>
+                              <div className="block md:hidden mt-4">
+                                {convertSecondsToDuration(track.duration)}
+                              </div>
                             </div>
 
-                            <div className="text-center">
+                            <div className="text-center hidden md:block">
                               {convertSecondsToDuration(track.duration)}
                             </div>
                           </div>
@@ -196,7 +199,7 @@ function ArtistPage() {
                   See All
                 </button>
               </div>
-              <div className="grid grid-cols-5 gap-8">
+              <div className="grid lg:grid-cols-5 md:grid-cols-3 grid-cols-2 gap-8">
                 {albumsToShow.map((album, index) => {
                   return (
                     <div className="flex flex-col mb-5" key={index}>
