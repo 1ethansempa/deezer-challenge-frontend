@@ -1,7 +1,7 @@
 import React, { useCallback, useEffect, useState } from "react";
 import MainLayout from "../components/layouts/main-layout";
 import { Loader } from "@mantine/core";
-import { Link, useParams } from "react-router-dom";
+import { useParams } from "react-router-dom";
 import { Artist } from "../types/artist";
 import { Track } from "../types/track";
 import { useSelector } from "react-redux";
@@ -11,8 +11,12 @@ import {
   convertSecondsToDuration,
   formatNumberWithCommas,
 } from "../utils/helpers";
-import { BadgeCheck } from "lucide-react";
 import { Album } from "../types/album";
+import ArtistLink from "../components/UI/tracks/artist-link";
+import AlbumCover from "../components/UI/tracks/album-cover";
+import ArtistHeader from "../components/artist-header";
+import ArtistAlbum from "../components/artist-album";
+import ArtistCoverImg from "../components/artist-cover-img";
 
 function ArtistPage() {
   const { id } = useParams();
@@ -116,21 +120,10 @@ function ArtistPage() {
         ) : (
           <div className="lg:px-12 md:px-8 px-4">
             <div className="grid lg:grid-cols-2 grid-cols-1 gap-8">
-              <div className="grid grid-cols-1 mb-8">
-                <img
-                  src={artist.picture_big}
-                  alt=""
-                  className="drop-shadow-lg rounded"
-                />
-              </div>
+              <ArtistCoverImg src={artist.picture_big} />
               <div>
                 <div className="mt-6 flex justify-between items-center">
-                  <h2 className="md:text-4xl text-2xl flex items-center font-bold ">
-                    <span className="mr-4 border-b-4 border-custom-yellow">
-                      {artist.name}
-                    </span>
-                    <BadgeCheck />
-                  </h2>
+                  <ArtistHeader artistName={artist.name} />
                   <p className="text-2xl">
                     {formatNumberWithCommas(artist.nb_fan)} fans
                   </p>
@@ -149,28 +142,15 @@ function ArtistPage() {
                           >
                             <div className="flex">
                               <div className="mr-3">{index + 1}</div>
-                              <div>
-                                <img
-                                  src={track.album.cover_medium}
-                                  className="lg:h-20 md:h-32 h-40  shadow-lg rounded"
-                                  alt=""
-                                />
-                              </div>
+                              <AlbumCover src={track.album.cover_medium} />
                             </div>
                             <div className="flex flex-col md:px-0 px-6">
                               <div className="font-bold">{track.title}</div>
-                              <Link to={`/artist/${track.artist.id}`}>
-                                <div className="text-sm  mt-2 text-primary-black dark:text-gray-300">
-                                  {track.explicit_lyrics ? (
-                                    <span className="mr-2 text-primary-black shadow-sm bg-gray-300 font-semibold py-1 px-2 rounded">
-                                      E
-                                    </span>
-                                  ) : null}
-                                  <span className="hover:underline">
-                                    {track.artist.name}
-                                  </span>
-                                </div>
-                              </Link>
+                              <ArtistLink
+                                artistId={track.artist.id}
+                                explicit={track.explicit_lyrics}
+                                artistName={track.artist.name}
+                              />
                               <div className="block md:hidden mt-4">
                                 {convertSecondsToDuration(track.duration)}
                               </div>
@@ -202,15 +182,12 @@ function ArtistPage() {
               <div className="grid lg:grid-cols-5 md:grid-cols-3 grid-cols-2 gap-8">
                 {albumsToShow.map((album, index) => {
                   return (
-                    <div className="flex flex-col mb-5" key={index}>
-                      <img
-                        src={album.cover_medium}
-                        className="shadow-lg rounded"
-                        alt=""
-                      />
-                      <h4 className="font-semibold">{album.title}</h4>
-                      <p>{new Date(album.release_date).getFullYear()}</p>
-                    </div>
+                    <ArtistAlbum
+                      key={index}
+                      src={album.cover_medium}
+                      title={album.title}
+                      releaseDate={album.release_date}
+                    />
                   );
                 })}
               </div>
