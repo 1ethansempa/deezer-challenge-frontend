@@ -1,22 +1,11 @@
-import React, { useEffect, useState } from "react";
+import React from "react";
 import { ChildrenProps } from "../../types/children";
 import MainNav from "./main-nav";
+import { useSelector } from "react-redux";
+import { RootState } from "src/store";
 
 function MainLayout({ children }: ChildrenProps) {
-  const [darkMode, setDarkMode] = useState(false);
-
-  const toggleDarkMode = () => {
-    setDarkMode(!darkMode);
-    localStorage.setItem("mode", !darkMode ? "dark" : "light");
-  };
-
-  useEffect(() => {
-    const mode = localStorage.getItem("mode");
-
-    if (mode === "dark") {
-      setDarkMode(true);
-    }
-  }, []);
+  const darkMode = useSelector((state: RootState) => state.mode.darkMode);
 
   return (
     <div
@@ -24,7 +13,7 @@ function MainLayout({ children }: ChildrenProps) {
         darkMode ? "dark" : ""
       }`}
     >
-      <MainNav toggleMode={toggleDarkMode} mode={darkMode} />
+      <MainNav />
       <div className="pt-32 px-12 dark:text-zinc-50">{children}</div>
     </div>
   );
