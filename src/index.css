@@ -1,3 +1,40 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+@import url("https://fonts.googleapis.com/css2?family=Open+Sans&display=swap");
+
+body {
+  font-family: "Open Sans", sans-serif;
+}
+
+.dark {
+  @apply bg-smoky-black text-zinc-50;
+}
+
+.shadow-bottom {
+  box-shadow: rgba(0, 0, 0, 0.2) 0px 2px 2px 0px;
+}
+
+.shadow-bottom-white {
+  box-shadow: 0px 4px 6px rgba(255, 255, 255, 0.1);
+}
+
+.react-toggle-track-x,
+.react-toggle-track-check {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.react-toggle--checked .react-toggle-track {
+  background-color: #ffec00 !important;
+}
+
+.react-toggle-track:hover,
+.react-toggle-track {
+  background-color: #afafaf !important;
+}
+
+.react-toggle--checked .react-toggle-thumb {
+}
