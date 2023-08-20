@@ -8,6 +8,7 @@ type Artist = {
   picture_xl: string;
   tracklist: string;
   type: string;
+  nb_fan: number;
 };
 
 export { Artist };

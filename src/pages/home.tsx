@@ -42,7 +42,9 @@ function Home() {
       }
 
       setFetching(false);
-    } catch (error: any) {}
+    } catch (error: any) {
+      setError("Something went wrong");
+    }
   };
 
   const handleKeyDown = async (event) => {
@@ -75,7 +77,7 @@ function Home() {
 
         <div className="mt-12">
           {fetching ? (
-            <Loader color={darkMode ? "#FAFAFA" : "#0E0F09"} />
+            <Loader color={darkMode ? "#FAFAFA" : "#0E0F09"} size={64} />
           ) : (
             <></>
           )}
@@ -106,17 +108,17 @@ function Home() {
                     <div>
                       <img
                         src={track.album.cover}
-                        className="h-20 shadow-lg"
+                        className="h-20 shadow-lg rounded"
                         alt=""
                       />
                     </div>
                   </div>
                   <div className="flex flex-col">
                     <div className="font-bold text-2xl">{track.title}</div>
-                    <Link to="/">
+                    <Link to={`/artist/${track.artist.id}`}>
                       <div className="text-sm  mt-2 text-primary-black dark:text-gray-300">
                         {track.explicit_lyrics ? (
-                          <span className="mr-2 text-primary-black bg-gray-300 font-semibold py-1 px-2 rounded">
+                          <span className="mr-2 text-primary-black shadow-sm bg-gray-300 font-semibold py-1 px-2 rounded">
                             E
                           </span>
                         ) : null}
@@ -126,7 +128,7 @@ function Home() {
                       </div>
                     </Link>
                   </div>
-                  <Link to="/">
+                  <Link to="#">
                     <div className="text-center hover:underline">
                       {track.album.title}
                     </div>
