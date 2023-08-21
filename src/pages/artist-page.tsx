@@ -2,8 +2,8 @@ import React, { useCallback, useEffect, useState } from "react";
 import MainLayout from "../components/layouts/main-layout";
 import { Loader } from "@mantine/core";
 import { useParams } from "react-router-dom";
-import { Artist } from "../types/artist";
-import { Track } from "../types/track";
+import { ExtendedArtist } from "../types/artist";
+import { ExtendedTrack } from "../types/track";
 import { useSelector } from "react-redux";
 import { RootState } from "src/store";
 import axios from "axios";
@@ -11,7 +11,7 @@ import {
   convertSecondsToDuration,
   formatNumberWithCommas,
 } from "../utils/helpers";
-import { Album } from "../types/album";
+import { ExtendedAlbum } from "../types/album";
 import ArtistLink from "../components/UI/tracks/artist-link";
 import AlbumCover from "../components/UI/tracks/album-cover";
 import ArtistHeader from "../components/artist-header";
@@ -21,10 +21,10 @@ import ArtistCoverImg from "../components/artist-cover-img";
 function ArtistPage() {
   const { id } = useParams();
 
-  const [artist, setArtist] = useState<Artist>(null);
-  const [tracks, setTracks] = useState<Track[]>([]);
-  const [albums, setAlbums] = useState<Album[]>([]);
-  const [albumsToShow, setAlbumsToShow] = useState<Album[]>([]);
+  const [artist, setArtist] = useState<ExtendedArtist>(null);
+  const [tracks, setTracks] = useState<ExtendedTrack[]>([]);
+  const [albums, setAlbums] = useState<ExtendedAlbum[]>([]);
+  const [albumsToShow, setAlbumsToShow] = useState<ExtendedAlbum[]>([]);
   const [fetching, setFetching] = useState(true);
   const [error, setError] = useState("");
 

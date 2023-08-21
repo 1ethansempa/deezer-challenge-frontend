@@ -1,5 +1,5 @@
 import React from "react";
-import { ChildrenProps } from "../../types/children";
+import { ChildrenProps } from "../../types/html-types";
 import MainNav from "./main-nav";
 import { useSelector } from "react-redux";
 import { RootState } from "src/store";

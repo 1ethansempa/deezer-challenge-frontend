@@ -13,4 +13,15 @@ type Track = {
   album: Album;
 };
 
-export { Track };
+type Contributor = {
+  id: number;
+  name: string;
+  picture: string;
+  picture_big: string;
+};
+
+type ExtendedTrack = Track & {
+  contributors: Contributor[];
+};
+
+export { Track, ExtendedTrack };

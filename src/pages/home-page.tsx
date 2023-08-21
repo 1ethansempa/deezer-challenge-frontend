@@ -12,7 +12,7 @@ import AlbumCover from "../components/UI/tracks/album-cover";
 import TrackTitle from "../components/UI/tracks/track-title";
 import ArtistLink from "../components/UI/tracks/artist-link";
 
-function Home() {
+function HomePage() {
   const darkMode = useSelector((state: RootState) => state.mode.darkMode);
   const [query, setQuery] = useState("");
   const [tracks, setTracks] = useState<Track[]>([]);
@@ -130,4 +130,4 @@ function Home() {
   );
 }
 
-export default Home;
+export default HomePage;
