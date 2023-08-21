@@ -3,13 +3,15 @@ import { Link } from "react-router-dom";
 import Toggle from "react-toggle";
 import "react-toggle/style.css";
 import { Moon, Sun } from "lucide-react";
+import { useDispatch, useSelector } from "react-redux";
+import { RootState } from "../../store";
+import { toggleMode } from "../../slices/modeSlice";
 
-interface MainNavProps {
-  toggleMode: () => void;
-  mode: boolean;
-}
+function MainNav() {
+  const darkMode = useSelector((state: RootState) => state.mode.darkMode);
 
-function MainNav({ toggleMode, mode }: MainNavProps) {
+  const dispatch = useDispatch();
+
   return (
     <nav className="p-6 flex justify-between bg-dark-white dark:bg-smoky-black shadow-bottom dark:shadow-bottom-white">
       <Link to="/">
@@ -18,8 +20,8 @@ function MainNav({ toggleMode, mode }: MainNavProps) {
         </span>
       </Link>
       <Toggle
-        onChange={toggleMode}
-        checked={mode}
+        onChange={() => dispatch(toggleMode())}
+        checked={darkMode}
         icons={{
           checked: <Sun color="#0E0F09" />,
           unchecked: <Moon color="#0E0F09" />,
