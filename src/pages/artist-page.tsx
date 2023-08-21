@@ -42,8 +42,6 @@ function ArtistPage() {
         }
       );
 
-      console.log(response.data);
-
       if (response.data) {
         setArtist(response.data);
       }

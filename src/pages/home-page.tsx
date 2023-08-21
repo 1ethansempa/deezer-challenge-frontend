@@ -38,8 +38,6 @@ function HomePage() {
         );
 
         if (response.data) {
-          console.log(response.data);
-
           setTracks(response.data);
         }
       }
