@@ -91,6 +91,7 @@ function HomePage() {
                 <div
                   key={index}
                   className="grid lg:grid-cols-4 md:grid-cols-3 grid-cols-2 w-full px-0 p-4 border-b border-light-gray dark:border-subtle-white text-primary-black dark:text-zinc-50"
+                  data-cy="track-result"
                 >
                   <div className="flex">
                     <div className="mr-3">{index + 1}</div>

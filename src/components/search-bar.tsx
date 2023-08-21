@@ -28,10 +28,12 @@ function SearchBar({ action, onChange, value }: SearchBarProps) {
           value={value}
           onChange={onChange}
           onKeyDown={handleKeyDown}
+          data-cy="search-bar"
         />
         <button
           className="absolute inset-y-0 right-4 flex items-center pr-3"
           onClick={action}
+          data-cy="search-btn"
         >
           <Search color={darkMode ? "#FAFAFA" : "#0E0F09"} size={24} />
         </button>
