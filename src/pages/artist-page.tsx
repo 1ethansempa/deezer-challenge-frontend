@@ -120,14 +120,14 @@ function ArtistPage() {
             <div className="grid lg:grid-cols-2 grid-cols-1 gap-8">
               <ArtistCoverImg src={artist.picture_big} />
               <div>
-                <div className="mt-6 flex justify-between items-center">
+                <div className="mt-6 flex md:flex-row flex-col md:justify-between justify-start md:items-center items-start">
                   <ArtistHeader artistName={artist.name} />
-                  <p className="text-2xl">
+                  <p className="text-2xl md:mt-0 mt-3">
                     {formatNumberWithCommas(artist.nb_fan)} fans
                   </p>
                 </div>
                 <div>
-                  <div className="flex-start font-medium flex text-4xl mb-3 mt-6">
+                  <div className="flex-start font-medium flex md:text-4xl text-2xl mb-3 mt-6">
                     Most Popular Tracks
                   </div>
                   {tracks.length > 0 ? (

@@ -99,11 +99,13 @@ function HomePage() {
                   </div>
                   <div className="flex flex-col">
                     <TrackTitle title={track.title} />
-                    <ArtistLink
-                      artistId={track.artist.id}
-                      explicit={track.explicit_lyrics}
-                      artistName={track.artist.name}
-                    />
+                    <div className="md:px-0 px-4">
+                      <ArtistLink
+                        artistId={track.artist.id}
+                        explicit={track.explicit_lyrics}
+                        artistName={track.artist.name}
+                      />
+                    </div>
                     <div className="md:px-0 px-4 block lg:hidden">
                       {convertSecondsToDuration(track.duration)}
                     </div>
