@@ -5,9 +5,7 @@ interface AlbumCoverProps {
 }
 
 function AlbumCover({ src }: AlbumCoverProps) {
-  return (
-    <img src={src} className="lg:h-20 md:h-32 h-40 shadow-lg rounded" alt="" />
-  );
+  return <img src={src} className="lg:h-20 h-32 shadow-lg rounded" alt="" />;
 }
 
 export default AlbumCover;
